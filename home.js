@@ -64,7 +64,17 @@ const loadSelectiveIssues = async (currentStatus) => {
     const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`;
     const res = await fetch(url);
     const data = await res.json();
+
     displayAllIssues(data.data);
+    };
+
+    const soloIssues = async (id) =>{
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+  
+    displayModal(data.data);
+    document.querySelector('#my_modal_5').showModal();
 }
 
  const displayAllIssues = (data) => {
@@ -108,7 +118,7 @@ const loadSelectiveIssues = async (currentStatus) => {
 
         //HTML part
         issueContainer.innerHTML += `
-                    <div id="card" class="rounded-lg w-[300px] shadow-2xl border border-gray-50 border-t-6 ${brColor}" >
+                    <div id="card" class="rounded-lg w-[300px] shadow-2xl border border-gray-50 border-t-6 ${brColor}" onclick="soloIssues(${d.id})" >
                 <div class="space-y-3 p-4">
                     <div class="flex justify-between items-center gap-3">
                         <div class="w-8 h-8">
@@ -129,11 +139,11 @@ const loadSelectiveIssues = async (currentStatus) => {
                 <hr class="w-full my-3 border border-gray-400">
                 <div class="p-4 space-y-2 flex justify-between items-center">
                     <div>
-                     <p class="text-[#64748bFF] font-[400px]"> ${d.author ? d.author:'No Name'} </p>
+                     <p class="text-[#64748bFF] font-[400px]"> ${d.author ? d.author.replace('_'," ").toUpperCase():'NO NAME'} </p>
                     <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
                     </div>
                     <div>
-                     <p class="text-[#64748bFF] font-[400px]"> ${d.assignee ? d.assignee : 'No Name'} </p>
+                     <p class="text-[#64748bFF] font-[400px]"> ${d.assignee ? d.assignee.replace('_'," ").toUpperCase() : 'NO NAME'} </p>
                     <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
                     </div>
                 </div>
@@ -172,7 +182,7 @@ const displayOpen = (data) => {
         // HTML part
 
         issueContainer.innerHTML += `
-                    <div id="card" class="rounded-lg w-[300px] shadow-2xl border border-gray-50 border-t-6 border-t-green-500" >
+                    <div id="card" class="rounded-lg w-[300px] shadow-2xl border border-gray-50 border-t-6 border-t-green-500" onclick="soloIssues(${d.id})" >
                 <div class="space-y-3 p-4">
                     <div class="flex justify-between items-center gap-3">
                         <div class="w-8 h-8">
@@ -189,11 +199,11 @@ const displayOpen = (data) => {
                 <hr class="w-full my-3 border border-gray-400">
                 <div class="p-4 space-y-2 flex justify-between items-center">
                     <div>
-                     <p class="text-[#64748bFF] font-[400px]"> ${d.author ? d.author:'No Name'} </p>
+                     <p class="text-[#64748bFF] font-[400px]"> ${d.author ? d.author.replace('_'," ").toUpperCase():'NO NAME'} </p>
                     <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
                     </div>
                     <div>
-                     <p class="text-[#64748bFF] font-[400px]"> ${d.assignee ? d.assignee : 'No Name'} </p>
+                     <p class="text-[#64748bFF] font-[400px]"> ${d.assignee ? d.assignee.replace('_'," ").toUpperCase() : 'NO NAME'} </p>
                     <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
                     </div>
                 </div>
@@ -230,7 +240,7 @@ const displayClosed = (data) => {
         // HTML part
 
         issueContainer.innerHTML += `
-                    <div id="card" class="rounded-lg w-[300px] shadow-2xl border border-gray-50 border-t-6 border-t-purple-500" >
+                    <div id="card" class="rounded-lg w-[300px] shadow-2xl border border-gray-50 border-t-6 border-t-purple-500" onclick="soloIssues(${d.id})" >
                 <div class="space-y-3 p-4">
                     <div class="flex justify-between items-center gap-3">
                         <div class="w-8 h-8">
@@ -247,11 +257,11 @@ const displayClosed = (data) => {
                 <hr class="w-full my-3 border border-gray-400">
                 <div class="p-4 space-y-2 flex justify-between items-center">
                     <div>
-                     <p class="text-[#64748bFF] font-[400px]"> ${d.author ? d.author:'No Name'} </p>
+                     <p class="text-[#64748bFF] font-[400px]"> ${d.author ? d.author.replace('_'," ").toUpperCase():'NO NAME'} </p>
                     <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
                     </div>
                     <div>
-                     <p class="text-[#64748bFF] font-[400px]"> ${d.assignee ? d.assignee : 'No Name'} </p>
+                     <p class="text-[#64748bFF] font-[400px]"> ${d.assignee ? d.assignee.replace('_'," ").toUpperCase() : 'NO NAME'} </p>
                     <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
                     </div>
                 </div>
@@ -259,10 +269,88 @@ const displayClosed = (data) => {
         `;     
     });
 };
+
+const displayModal = (d) => {
+    const modalContainer = document.querySelector('#modal-section');
+    let myColor = ''
+    modalContainer.innerHTML = '';
+   
+            let priorityColor = [];
+
+            if(d.priority === 'high'){ priorityColor.push('border-red-600','bg-red-100', 'text-red-600 ') }
+            else if(d.priority === 'medium') { priorityColor.push('border-yellow-600','bg-yellow-100', 'text-yellow-600 ')  }
+            else{ priorityColor.push('border-gray-800','bg-gray-300', 'text-gray-800 ')  };
+
+
+            const buttonsLabel = d.labels.map((label) => { 
+            let buttonClasses = [];
+            if(label === 'bug'){ buttonClasses.push('border-red-500' , 'bg-red-100' , 'text-red-500') }
+            else if(label === 'enhancement' ){buttonClasses.push('border-green-500' , 'bg-green-100' , 'text-green-500')}
+            else if(label === 'help wanted'){buttonClasses.push('border-yellow-700' , 'bg-yellow-100' , 'text-yellow-700')}
+            else if(label === 'documentation'){buttonClasses.push('border-blue-500' , 'bg-blue-100' , 'text-blue-500')}
+            else if(label === 'good first issue'){buttonClasses.push('border-pink-500' , 'bg-pink-100' , 'text-pink-500')}
+
+            
+            if(d.status === 'open'){
+              myColor = 'bg-green-600'
+            }
+            else{
+              myColor = 'bg-red-600'
+            }
+
+            return `<button class="border ${buttonClasses.join(' ')}  font-medium rounded-2xl p-1"> ${label} </button>` });
+        
+            const buttons = buttonsLabel.join(' ');
+
+            modalContainer.innerHTML = `
+              
+                <dialog id="my_modal_5" class="modal ">
+                    <div class="modal-box m-8">
+                        <div class="modal-designs space-y-4">
+                           <div class="heading-modal space-y-2">
+                                <h2 class="text-2xl font-bold">${d.title}/h2>
+                                <div class="opening-modal-head flex items-center gap-4">
+                                    <button class="${myColor} rounded-2xl font-light text-sm px-1 text-white">${d.status === 'open' ? 'Opened': 'Closed'}</button>
+                                    <p class="flex items-center gap-2">
+                                        <i class="fa-solid fa-circle text-[4px]"></i>
+                                        <span class="opened-by-head   text-[12px] font-[400px] text-[#64748bFF]"> Opened by ${d.assignee? d.assignee.replace('_'," ").toUpperCase(): 'NO NAME'}</span>
+                                    </p>
+                                    <p class="flex items-center gap-2">
+                                        <i class="fa-solid fa-circle text-[4px]"></i>
+                                        <span class="opened-date-head text-[12px] font-[400px] text-[#64748bFF]">  10.12.2005</span>
+                                    </p>
+                                </div>
+                           </div>
+                           <div id="modal-buttons">
+                                ${buttons}
+                            </div>
+
+                            <p class="opened-date-head text-sm font-[400px] text-[#64748bFF]">Hello guys,,this is abrar</p>
+                            <div class="middle-details-modal flex justify-start gap- items-center">
+                                <div class="w-[300px] p-4">
+                                    <p class="text-sm font-[400px] text-[#64748bFF]">Assignee:</p>
+                                    <p class="text-sm font-[400px]">${d.assignee.replace('_'," ").toUpperCase()}</p>
+                                </div>
+                                <div class="w-[300px]">
+                                    <p class="text-sm font-[400px] text-[#64748bFF]">Priority:</p>
+                                    <button class="border ${priorityColor.join(' ')} font-medium rounded-2xl px-1">${d.priority}</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-action">
+                            <form method="dialog">  
+                            <button class="btn bg-[#4a00ffFF] text-white px-4 py-2 font-semibold rounded-md">Close</button>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+            `
+};
    
 document.querySelector('#search-issue').addEventListener('click' , ()=>{
-    const searchInp = document.querySelector('#search-issue-inp');
-    const searchValue = searchInp.value;
+    const searchTwo = document.querySelector('#search-issue-two');
+    const searchValue = searchTwo.value;
     loadsearchIssues(searchValue);
 });
 
