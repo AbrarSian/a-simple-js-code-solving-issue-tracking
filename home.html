@@ -18,7 +18,36 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-<body>
-    
+<body class="bg-[#FFFFFF]">
+    <header class="max-w-[1600px] mx-auto">
+        <div class="navbar bg-base-100 shadow-sm w-fulll">
+            <div class="flex-1">
+              <div class="flex gap-2 items-center">
+                <div class="h-9 w-9"><img src="./assets/github-logo.png" alt="" srcset=""></div>
+                <h1 class="text-2xl font-semibold">GitHub Issues Tracker</h1>
+              </div>
+            </div>
+            <div class="flex gap-3 items-center">
+                <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-[300px] md:h-10" />
+                <div class="dropdown dropdown-end">
+                    <button class=" bg-[#4a00ffFF] text-white px-4 py-2 font-semibold rounded-md">+New Issue</button>
+                <ul
+                    tabindex="-1"
+                    class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                    <li>
+                    <a class="justify-between">
+                        Profile
+                        <span class="badge">New</span>
+                    </a>
+                    </li>
+                    <li><a>Settings</a></li>
+                    <li><a>Logout</a></li>
+                </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <script src="./home.js"></script>    
 </body>
 </html>
