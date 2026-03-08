@@ -1,4 +1,4 @@
-const issueCount = document.querySelector('#issue-count');
+
 
 // toggle 
 const buttonToggling = (id) => {
@@ -46,6 +46,8 @@ const loadSelectiveIssues = async (currentStatus) => {
         };
         
     });
+
+        const issueCount = document.querySelector('#issue-count');
         if(currentStatus === 'open'){
         displayOpen(open);
         issueCount.innerText = open.length;
@@ -58,7 +60,15 @@ const loadSelectiveIssues = async (currentStatus) => {
         }  
  };
 
+    const loadsearchIssues = async (searchText) => {
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayAllIssues(data.data);
+}
+
  const displayAllIssues = (data) => {
+    const issueCount = document.querySelector('#issue-count');
     issueCount.innerText = data.length;
     const openImage = '<img class="w-full h-full" src="./assets/Open-Status.png" alt="" ></img>';
     const closedImage = '<img class="w-full h-full" src="./assets/Closed- Status .png" alt="">';
@@ -249,26 +259,11 @@ const displayClosed = (data) => {
         `;     
     });
 };
+   
+document.querySelector('#search-issue').addEventListener('click' , ()=>{
+    const searchInp = document.querySelector('#search-issue-inp');
+    const searchValue = searchInp.value;
+    loadsearchIssues(searchValue);
+});
 
 loadAllIssues();
-
-
-
-// A single data from api
-
-// "data": [
-// {
-// "id": 1,
-// "title": "Fix navigation menu on mobile devices",
-// "description": "The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.",
-// "status": "open",
-// "labels": [
-// "bug",
-// "help wanted"
-// ],
-// "priority": "high",
-// "author": "john_doe",
-// "assignee": "jane_smith",
-// "createdAt": "2024-01-15T10:30:00Z",
-// "updatedAt": "2024-01-15T10:30:00Z"
-// },
