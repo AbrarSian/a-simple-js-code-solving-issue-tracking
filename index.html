@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Github Issues Tracker</title>
+    <title>Github Issues Tracker : Sign In</title>
     <link rel="shortcut icon" href="./assets/github-logo.png" type="image/x-icon">
     
     <!-- FavIcon -->
@@ -31,11 +31,17 @@
                 
                 <div class="space-y-2">
                 <label class="label text-black font-semibold text-[16px]">Username</label>
-                <input type="text" id="username" class="input w-full" placeholder="Enter Username" /></div>
+                <input type="text" id="username" class="input w-full" placeholder="Enter Username" />
+                <p class="text-sm text-purple-600 font-semibold">Default: admin</p>
+                </div>
+                
                   
                 <div class="space-y-2">
                 <label class="label text-black font-semibold text-[16px]">Password</label>
-                <input type="password" id="password" class="input w-full" placeholder="Enter Password" /></div>
+                <input type="password" id="password" class="input w-full" placeholder="Enter Password" />
+                <p class="text-sm text-purple-600 font-semibold">Default: admin123</p>
+                </div>
+                
 
                 <button class="login btn btn-neutral mt-4">Login</button>
                 
@@ -45,7 +51,7 @@
                 </div>
                 <div class="flex flex-col justify-between items-center gap-5">
                     <p class="text-[#64748bFF] text-[16px] font-[400px]">Demo Credentials:</p>
-                    <div>
+                    <div class="bg-gray-200 p-6 rounded-xl">
                         <p class=" text-[20px]"><span class="font-semibold text-black ">Username:</span>admin</p>
                         <p class=" text-[20px]"><span class="font-semibold text-black ">Password:</span>admin123</p>
                     </div>
