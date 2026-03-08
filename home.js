@@ -120,6 +120,8 @@ const loadSelectiveIssues = async (currentStatus) => {
         if(d.priority === 'high'){ priorityColor.push('border-red-600','bg-red-100', 'text-red-600 ') }
         else if(d.priority === 'medium') { priorityColor.push('border-yellow-600','bg-yellow-100', 'text-yellow-600 ')  }
         else{ priorityColor.push('border-gray-800','bg-gray-300', 'text-gray-800 ')  }
+        const dateCreated = d.createdAt.slice(0, 10);
+        const dateUpdated = d.updatedAt.slice(0, 10);
 
         const buttonsLabel = d.labels.map((label) => { 
             let buttonClasses = [];
@@ -135,15 +137,15 @@ const loadSelectiveIssues = async (currentStatus) => {
 
         //HTML part
         issueContainer.innerHTML += `
-                    <div id="card" class="rounded-lg w-[300px] shadow-2xl border border-gray-50 border-t-6 ${brColor}" onclick="soloIssues(${d.id})" >
-                <div class="space-y-3 p-4">
+                    <div id="card" class="rounded-lg w-full md:space-y-5 space-y-8 shadow-2xl border border-gray-50 border-t-6 ${brColor}" onclick="soloIssues(${d.id})" >
+                <div class="md:space-y-3 space-y-5 p-4">
                     <div class="flex justify-between items-center gap-3">
                         <div class="w-8 h-8">
                             ${d.status === 'open' ? openImage : closedImage}
                         </div>
                         <button class="${priorityColor.join(' ')}  p-1 w-20 rounded-4xl">${d.priority}</button>
                     </div>
-                    <div class="space-y-3 h-[110px]">
+                    <div class="md:space-y-3 space-y-5 h-[110px]">
                         <h3 class="text-sm font-semibold h-[35px]">${d.title}</h3>
                         <p class="text-[12px] font-[400px] text-[#64748bFF] line-clamp-2">
                             ${d.description}
@@ -156,12 +158,12 @@ const loadSelectiveIssues = async (currentStatus) => {
                 <hr class="w-full my-3 border border-gray-400">
                 <div class="p-4 space-y-2 flex justify-between items-center">
                     <div>
-                     <p class="text-[#64748bFF] font-[400px]"> ${d.author ? d.author.replace('_'," ").toUpperCase():'NO NAME'} </p>
-                    <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
+                     <p class="text-[#64748bFF] text-[12px] font-[400px]"> ${d.author ? d.author.replace('_'," ").toUpperCase():'NO NAME'} </p>
+                    <p class="text-[#64748bFF] text-[12px] font-[400px]">${dateCreated}</p>
                     </div>
                     <div>
-                     <p class="text-[#64748bFF] font-[400px]"> ${d.assignee ? d.assignee.replace('_'," ").toUpperCase() : 'NO NAME'} </p>
-                    <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
+                     <p class="text-[#64748bFF] text-[12px] font-[400px]"> ${d.assignee ? d.assignee.replace('_'," ").toUpperCase() : 'NO NAME'} </p>
+                    <p class="text-[#64748bFF] text-[12px] font-[400px]">${dateUpdated}</p>
                     </div>
                 </div>
             </div>
@@ -177,6 +179,8 @@ const displayOpen = (data) => {
 
     data.forEach(d => {
     
+        const dateCreated = d.createdAt.slice(0, 10);
+        const dateUpdated = d.updatedAt.slice(0, 10);
         let priorityColor = [];
 
         if(d.priority === 'high'){ priorityColor.push('border-red-600','bg-red-100', 'text-red-600 ') }
@@ -199,15 +203,15 @@ const displayOpen = (data) => {
         // HTML part
 
         issueContainer.innerHTML += `
-                    <div id="card" class="rounded-lg w-[300px] shadow-2xl border border-gray-50 border-t-6 border-t-green-500" onclick="soloIssues(${d.id})" >
-                <div class="space-y-3 p-4">
+                    <div id="card" class="rounded-lg w-full md:space-y-5 space-y-8 shadow-2xl border border-gray-50 border-t-6 border-t-green-500" onclick="soloIssues(${d.id})" >
+                <div class="md:space-y-3 space-y-5 p-4">
                     <div class="flex justify-between items-center gap-3">
                         <div class="w-8 h-8">
                             <img class="w-full h-full" src="./assets/Open-Status.png" alt="" >
                         </div>
                         <button class="${priorityColor.join(' ')}  p-1 w-20 rounded-4xl">${d.priority}</button>
                     </div>
-                    <div class="space-y-3 h-[110px]">
+                    <div class="md:space-y-3 space-y-5 h-[110px]">
                         <h3 class="text-sm font-semibold h-[35px]">${d.title}</h3>
                         <p class="text-[12px] font-[400px] text-[#64748bFF] line-clamp-2"> ${d.description} </p>
                         <div class="space-x-1 h-6"> ${buttons} </div>
@@ -217,11 +221,11 @@ const displayOpen = (data) => {
                 <div class="p-4 space-y-2 flex justify-between items-center">
                     <div>
                      <p class="text-[#64748bFF] font-[400px]"> ${d.author ? d.author.replace('_'," ").toUpperCase():'NO NAME'} </p>
-                    <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
+                    <p class="text-[#64748bFF] font-[400px]">${dateCreated}</p>
                     </div>
                     <div>
                      <p class="text-[#64748bFF] font-[400px]"> ${d.assignee ? d.assignee.replace('_'," ").toUpperCase() : 'NO NAME'} </p>
-                    <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
+                    <p class="text-[#64748bFF] font-[400px]">${dateUpdated}</p>
                     </div>
                 </div>
             </div>
@@ -235,7 +239,9 @@ const displayClosed = (data) => {
     issueContainer.innerHTML = '';
 
     data.forEach(d => {
-        
+
+        const dateCreated = d.createdAt.slice(0, 10);
+        const dateUpdated = d.updatedAt.slice(0, 10);
         let priorityColor = [];
 
         if(d.priority === 'high'){ priorityColor.push('border-red-600','bg-red-100', 'text-red-600 ') }
@@ -257,15 +263,15 @@ const displayClosed = (data) => {
         // HTML part
 
         issueContainer.innerHTML += `
-                    <div id="card" class="rounded-lg w-[300px] shadow-2xl border border-gray-50 border-t-6 border-t-purple-500" onclick="soloIssues(${d.id})" >
-                <div class="space-y-3 p-4">
+                    <div id="card" class="rounded-lg w-full md:space-y-5 space-y-8 shadow-2xl border border-gray-50 border-t-6 border-t-purple-500" onclick="soloIssues(${d.id})" >
+                <div class="md:space-y-3 space-y-5 p-4">
                     <div class="flex justify-between items-center gap-3">
                         <div class="w-8 h-8">
                             <img class="w-full h-full" src="./assets/Closed- Status .png" alt="">
                         </div>
                         <button class="${priorityColor.join(' ')}  p-1 w-20 rounded-4xl">${d.priority}</button>
                     </div>
-                    <div class="space-y-3 h-[110px]">
+                    <div class="md:space-y-3 space-y-5 h-[110px]">
                         <h3 class="text-sm font-semibold h-[35px]">${d.title}</h3>
                         <p class="text-[12px] font-[400px] text-[#64748bFF] line-clamp-2"> ${d.description} </p>
                         <div class="space-x-1 h-6"> ${buttons} </div>
@@ -275,11 +281,11 @@ const displayClosed = (data) => {
                 <div class="p-4 space-y-2 flex justify-between items-center">
                     <div>
                      <p class="text-[#64748bFF] font-[400px]"> ${d.author ? d.author.replace('_'," ").toUpperCase():'NO NAME'} </p>
-                    <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
+                    <p class="text-[#64748bFF] font-[400px]">${dateCreated}</p>
                     </div>
                     <div>
                      <p class="text-[#64748bFF] font-[400px]"> ${d.assignee ? d.assignee.replace('_'," ").toUpperCase() : 'NO NAME'} </p>
-                    <p class="text-[#64748bFF] font-[400px]">1/7/2024</p>
+                    <p class="text-[#64748bFF] font-[400px]">${dateUpdated}</p>
                     </div>
                 </div>
             </div>
@@ -292,6 +298,8 @@ const displayModal = (d) => {
     let myColor = ''
     modalContainer.innerHTML = '';
    
+            const dateCreated = d.createdAt.slice(0, 10);
+            const dateUpdated = d.updatedAt.slice(0, 10);
             let priorityColor = [];
 
             if(d.priority === 'high'){ priorityColor.push('border-red-600','bg-red-100', 'text-red-600 ') }
@@ -334,7 +342,7 @@ const displayModal = (d) => {
                                     </p>
                                     <p class="flex items-center gap-2">
                                         <i class="fa-solid fa-circle text-[4px]"></i>
-                                        <span class="opened-date-head text-[12px] font-[400px] text-[#64748bFF]">  10.12.2005</span>
+                                        <span class="opened-date-head text-[12px] font-[400px] text-[#64748bFF]"> ${dateCreated}</span>
                                     </p>
                                 </div>
                            </div>
