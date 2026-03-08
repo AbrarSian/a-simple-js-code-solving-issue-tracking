@@ -29,13 +29,13 @@
 
 4️⃣ What is an arrow function?
     ans:    Arrow funtion is a shortcut of function where we :
-                i. Arrow function don't need to write key word function.
-                ii. This don't need to write () if there is single parameter.
-                iii. Also it don't need to write {} and return for single line code.
-                    for example: [1,2,3].map(e =>e*2) // here function (e){return e*2} is the the full form.
+            i. Arrow function don't need to write key word function.
+            ii. This don't need to write () if there is single parameter.
+            iii. Also it don't need to write {} and return for single line code.
+            for example: [1,2,3].map(e =>e*2) // here function (e){return e*2} is the the full form.
 
 5️⃣ What are template literals?
     ans:    Template literals is a way to create string. It has some benefits. They are -
-                i. Template literals can take values of variables by ${}.
-                ii. It can write multi line codes without \n
-                iii. It can do operation inside a string by ${};
+            i. Template literals can take values of variables by ${}.
+            ii. It can write multi line codes without \n
+            iii. It can do operation inside a string by ${};
