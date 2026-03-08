@@ -1,4 +1,15 @@
-
+const showLoading = () => {
+    const loadingSpinner =document.querySelector('#loadSpinner');
+    loadingSpinner.classList.remove('hidden');
+    loadingSpinner.classList.add('flex');
+    document.querySelector('#issue-container').classList.add('hidden')
+};
+const endLoading = () => {
+    const loadingSpinner =document.querySelector('#loadSpinner');
+    loadingSpinner.classList.add('hidden');
+    loadingSpinner.classList.remove('flex');
+    document.querySelector('#issue-container').classList.remove('hidden')
+};
 
 // toggle 
 const buttonToggling = (id) => {
@@ -21,15 +32,18 @@ const buttonToggling = (id) => {
 
 const loadAllIssues = async () => {
 
+    showLoading();
     const url = 'https://phi-lab-server.vercel.app/api/v1/lab/issues';
     const res = await fetch(url);
     const data = await res.json();
 
     displayAllIssues(data.data);
     buttonToggling('all-btn');
+    endLoading();
  };
 
 const loadSelectiveIssues = async (currentStatus) => {
+     showLoading();
      let open = [];
      let closed = [];
     const url = 'https://phi-lab-server.vercel.app/api/v1/lab/issues';
@@ -57,15 +71,18 @@ const loadSelectiveIssues = async (currentStatus) => {
         displayClosed(closed);
         issueCount.innerText = closed.length;
         buttonToggling('closed-btn');
-        }  
+        };
+        endLoading();  
  };
 
     const loadsearchIssues = async (searchText) => {
+    showLoading();
     const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searchText}`;
     const res = await fetch(url);
     const data = await res.json();
 
     displayAllIssues(data.data);
+    endLoading();
     };
 
     const soloIssues = async (id) =>{
@@ -295,7 +312,7 @@ const displayModal = (d) => {
               myColor = 'bg-green-600'
             }
             else{
-              myColor = 'bg-red-600'
+              myColor = 'bg-purple-600'
             }
 
             return `<button class="border ${buttonClasses.join(' ')}  font-medium rounded-2xl p-1"> ${label} </button>` });
