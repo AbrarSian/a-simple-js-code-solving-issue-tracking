@@ -352,7 +352,7 @@ const displayModal = (d) => {
                                 ${buttons}
                             </div>
 
-                            <p class="opened-date-head text-sm font-[400px] text-[#64748bFF]">Hello guys,,this is abrar</p>
+                            <p class="opened-date-head text-sm font-[400px] text-[#64748bFF]">${d.description}</p>
                             <div class="middle-details-modal flex justify-start gap- items-center">
                                 <div class="w-[300px] p-4">
                                     <p class="text-sm font-[400px] text-[#64748bFF]">Assignee:</p>
